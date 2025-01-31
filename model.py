@@ -36,6 +36,7 @@ class TextDataset(Dataset):
             'attention_mask': encoding['attention_mask'].flatten(),
             'label': torch.tensor(label, dtype=torch.long)
         }
+    pass
 
 class SentimentLSTM(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_dim, n_layers, n_classes, dropout=0.3):
@@ -65,6 +66,8 @@ class SentimentLSTM(nn.Module):
         hidden = self.dropout(hidden)
         output = self.fc(hidden)
         return torch.softmax(output, dim=1)
+
+        pass
 
 def prepare_data(texts, labels=None, max_length=None):
     """Prepara los datos para el entrenamiento, usando el 90% de los registros para determinar max_length"""
