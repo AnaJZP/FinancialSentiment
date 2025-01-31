@@ -27,8 +27,8 @@ Este proyecto implementa un modelo de análisis de sentimientos para textos fina
 
 1. Clonar el repositorio:
 ```bash
-git clone https://github.com/tu-usuario/analisis-sentimientos-financieros.git
-cd analisis-sentimientos-financieros
+git clone https://github.com/AnaJZP/FinancialSentiment.git
+cd Bourbaki_Analisis_Sentimiento
 ```
 
 2. Crear y activar entorno virtual:
