@@ -36,7 +36,6 @@ class TextDataset(Dataset):
             'attention_mask': encoding['attention_mask'].flatten(),
             'label': torch.tensor(label, dtype=torch.long)
         }
-    pass
 
 class SentimentLSTM(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_dim, n_layers, n_classes, dropout=0.3):
@@ -52,22 +51,18 @@ class SentimentLSTM(nn.Module):
             bidirectional=True
         )
         self.dropout = nn.Dropout(dropout)
-        self.fc = nn.Linear(hidden_dim * 2, n_classes)  # * 2 for bidirectional
+        self.fc = nn.Linear(hidden_dim * 2, n_classes)
         
     def forward(self, text, attention_mask):
         embedded = self.embedding(text)
         
-        # Secuencia de paquetes para manejar entradas de longitud variable
         packed_output, (hidden, cell) = self.lstm(embedded)
         
-        # Concatenar los estados ocultos finales hacia adelante y hacia atrás
         hidden = torch.cat((hidden[-2,:,:], hidden[-1,:,:]), dim=1)
         
         hidden = self.dropout(hidden)
         output = self.fc(hidden)
         return torch.softmax(output, dim=1)
-
-        pass
 
 def prepare_data(texts, labels=None, max_length=None):
     """Prepara los datos para el entrenamiento, usando el 90% de los registros para determinar max_length"""
