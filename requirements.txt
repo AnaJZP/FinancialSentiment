@@ -1,5 +1,5 @@
 streamlit==1.31.1
-torch==2.1.0
+torch>=2.0.0,<3.0.0
 transformers==4.37.2
 deep-translator==1.11.4
 plotly==5.18.0
@@ -7,7 +7,5 @@ pandas==2.1.4
 nltk==3.8.1
 wordcloud==1.9.3
 scikit-learn==1.3.2
-imbalanced-learn==0.11.0
+numpy>=1.24.0
 datasets==2.16.1
-numpy==1.24.3
-tqdm==4.66.1
