@@ -12,8 +12,7 @@ from eda import (
 # Configuración de la página
 st.set_page_config(
     page_title="Análisis de Sentimientos Financieros",
-    layout="wide",
-    page_icon="📈"
+    layout="wide"
 )
 
 # Título y descripción
@@ -24,11 +23,6 @@ st.write("Este dashboard muestra el análisis de sentimientos de textos financie
 st.markdown("""
 <div style='background-color: #f0f2f6; padding: 20px; border-radius: 10px; margin-bottom: 20px'>
     <h4>Desarrollado por: Ana Lorena Jiménez Preciado</h4>
-    <p>Usa la barra lateral para navegar entre las diferentes páginas:</p>
-    <ul>
-        <li>📊 Página Principal - Análisis Exploratorio</li>
-        <li>🤖 Modelo - Análisis de Sentimientos en Tiempo Real</li>
-    </ul>
 </div>
 """, unsafe_allow_html=True)
 

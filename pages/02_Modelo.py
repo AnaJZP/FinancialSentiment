@@ -5,7 +5,9 @@ from transformers import AutoTokenizer
 from deep_translator import GoogleTranslator
 import numpy as np
 from eda import SENTIMENT_MAP, cargar_datos
+import plotly.express as px
 import pandas as pd
+from collections import Counter
 
 st.set_page_config(page_title="Modelo de Sentimientos", layout="wide")
 

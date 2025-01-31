@@ -3,6 +3,7 @@ import torch
 from torch import nn
 from torch.utils.data import Dataset, DataLoader
 from transformers import AutoTokenizer, AutoModel
+import tensorflow as tf
 from gensim.models import Word2Vec
 from sklearn.model_selection import train_test_split
 from nltk.tokenize import word_tokenize
@@ -50,15 +51,15 @@ class SentimentLSTM(nn.Module):
             bidirectional=True
         )
         self.dropout = nn.Dropout(dropout)
-        self.fc = nn.Linear(hidden_dim * 2, n_classes)
-    
-    def forward(self, text, attention_mask=None):
+        self.fc = nn.Linear(hidden_dim * 2, n_classes)  # * 2 for bidirectional
+        
+    def forward(self, text, attention_mask):
         embedded = self.embedding(text)
         
-        # Pack padded batch of sequences for RNN module
+        # Secuencia de paquetes para manejar entradas de longitud variable
         packed_output, (hidden, cell) = self.lstm(embedded)
         
-        # Concatenate the final forward and backward hidden states
+        # Concatenar los estados ocultos finales hacia adelante y hacia atrás
         hidden = torch.cat((hidden[-2,:,:], hidden[-1,:,:]), dim=1)
         
         hidden = self.dropout(hidden)
@@ -66,8 +67,9 @@ class SentimentLSTM(nn.Module):
         return torch.softmax(output, dim=1)
 
 def prepare_data(texts, labels=None, max_length=None):
-    """Prepara los datos para el entrenamiento"""
+    """Prepara los datos para el entrenamiento, usando el 90% de los registros para determinar max_length"""
     if max_length is None:
+        # Calcular longitud máxima usando el 90% de los datos
         text_lengths = [len(word_tokenize(text)) for text in texts]
         max_length = int(np.percentile(text_lengths, 90))
     
