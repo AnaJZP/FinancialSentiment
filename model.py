@@ -3,7 +3,6 @@ import torch
 from torch import nn
 from torch.utils.data import Dataset, DataLoader
 from transformers import AutoTokenizer, AutoModel
-import tensorflow as tf
 from gensim.models import Word2Vec
 from sklearn.model_selection import train_test_split
 from nltk.tokenize import word_tokenize
@@ -36,6 +35,7 @@ class TextDataset(Dataset):
             'attention_mask': encoding['attention_mask'].flatten(),
             'label': torch.tensor(label, dtype=torch.long)
         }
+    pass
 
 class SentimentLSTM(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_dim, n_layers, n_classes, dropout=0.3):
@@ -51,7 +51,8 @@ class SentimentLSTM(nn.Module):
             bidirectional=True
         )
         self.dropout = nn.Dropout(dropout)
-        self.fc = nn.Linear(hidden_dim * 2, n_classes)  # * 2 for bidirectional
+        self.fc = nn.Linear(hidden_dim * 2, n_classes)  #
+    pass
         
     def forward(self, text, attention_mask):
         embedded = self.embedding(text)
