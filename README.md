@@ -42,6 +42,15 @@ source venv/bin/activate  # En Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+## Nota sobre el modelo `best_model.pt`
+
+El archivo `best_model.pt` no se encuentra en el repositorio porque excede el límite de tamaño permitido por GitHub. Para generar este archivo, sigue los siguientes pasos:
+
+1. Corre el script de entrenamiento:
+   ```bash
+   python train.py
+
+
 ## 🖥️ Uso
 
 1. Ejecutar la aplicación localmente:
@@ -68,9 +77,6 @@ http://localhost:8501
 - Early Stopping (paciencia de 5 épocas)
 - Optimizador AdamW (learning rate 2e-5)
 
-## 🌐 Demo Online
-
-Puedes acceder a la demo en vivo aquí: [Link a tu app en Streamlit Cloud]
 
 ## 🤝 Contribuciones
 

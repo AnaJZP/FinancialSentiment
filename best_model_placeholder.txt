@@ -1,0 +1,4 @@
+Este archivo es un marcador.
+El modelo `best_model.pt` no se incluye en este repositorio debido a su tamaño.
+
+Para generar este archivo, ejecuta el script `train.py`
