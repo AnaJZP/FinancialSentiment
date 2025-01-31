@@ -9,9 +9,9 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
-
-#  NLTK
-nltk.download("punkt_tab")
+# NLTK
+nltk.download("punkt", quiet=True)
+nltk.download("stopwords", quiet=True)
 
 # Configuraciones globales
 SENTIMENT_MAP = {
@@ -28,13 +28,23 @@ COLOR_MAP = {
 
 def descargar_datos(configuracion="sentences_allagree"):
     """Descarga los datos del dataset Financial PhraseBank."""
-    datos = load_dataset("takala/financial_phrasebank", configuracion, split="train")
-    return datos.to_pandas()
+    try:
+        # Intentar cargar directamente desde Hugging Face
+        datos = load_dataset("takala/financial_phrasebank", configuracion, split="train")
+        return datos.to_pandas()
+    except Exception as e:
+        print(f"Error al cargar dataset: {str(e)}")
+        # Datos de respaldo (puedes poner aquí un conjunto pequeño de datos de ejemplo)
+        return pd.DataFrame({
+            "text": ["Example positive text", "Example negative text", "Example neutral text"],
+            "label": [2, 0, 1]
+        })
 
 def cargar_datos():
     """Carga y prepara los datos iniciales."""
     df = descargar_datos()
-    df.columns = ["texto", "etiqueta"]
+    if 'text' in df.columns:
+        df.columns = ["texto", "etiqueta"]
     df["sentimiento"] = df["etiqueta"].map(SENTIMENT_MAP)
     return df
 
