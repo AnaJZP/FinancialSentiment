@@ -51,16 +51,13 @@ class SentimentLSTM(nn.Module):
             bidirectional=True
         )
         self.dropout = nn.Dropout(dropout)
-        self.fc = nn.Linear(hidden_dim * 2, n_classes)  #
-    pass
+        self.fc = nn.Linear(hidden_dim * 2, n_classes)  # * 2 for bidirectional
         
     def forward(self, text, attention_mask):
         embedded = self.embedding(text)
         
-        # Secuencia de paquetes para manejar entradas de longitud variable
         packed_output, (hidden, cell) = self.lstm(embedded)
         
-        # Concatenar los estados ocultos finales hacia adelante y hacia atrás
         hidden = torch.cat((hidden[-2,:,:], hidden[-1,:,:]), dim=1)
         
         hidden = self.dropout(hidden)

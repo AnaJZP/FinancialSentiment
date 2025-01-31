@@ -1,9 +1,3 @@
-import sys
-import os
-# Directorio raíz al path de Python
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-
 import streamlit as st
 import torch
 from model import SentimentLSTM
